@@ -1,5 +1,7 @@
 # Bloom
 
+https://bloom-five-smoky.vercel.app
+
 A calmer, more human way to manage your life. A responsive, local-first personal planner with energy-aware suggestions, a focus timer, and an original botanical progress garden.
 
 ## Run locally
