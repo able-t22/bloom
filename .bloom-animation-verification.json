@@ -1,0 +1,23 @@
+{
+  "typecheck": "passed",
+  "domainTests": 9,
+  "productionBuild": "passed",
+  "browserChecks": 24,
+  "browserErrors": 0,
+  "responsiveWidths": [
+    320,
+    390,
+    768,
+    1280
+  ],
+  "visualReview": [
+    "landing",
+    "energy desktop",
+    "energy mobile"
+  ],
+  "homepageInitialJs": {
+    "previousKb": 133,
+    "currentKb": 108,
+    "note": "Initial route JavaScript from Next build output; GSAP downloads after hydration. Not a frame-rate benchmark."
+  }
+}

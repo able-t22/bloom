@@ -1,0 +1,1 @@
+import {Suspense} from 'react';import {FocusTimer} from '@/components/focus-timer';export default function Focus(){return <Suspense fallback={<p className="loading">Making room for focus…</p>}><FocusTimer/></Suspense>;}

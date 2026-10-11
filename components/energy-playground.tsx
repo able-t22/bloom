@@ -1,0 +1,21 @@
+'use client';
+import {useState} from 'react';
+import Link from 'next/link';
+import {Sunrise,Sun,CloudSun,ArrowUpRight,Clock,Check,RotateCcw} from 'lucide-react';
+import {Motion,Reveal} from './motion';
+const modes={
+ low:{label:'Low energy',Icon:CloudSun,title:'A softer kind of day.',copy:'Start small. Leave room to recharge. Your plan can meet you where you are.',minutes:15,task:'Send a quick project update',rest:'Take a little breathing break',color:'lavender'},
+ balanced:{label:'Balanced',Icon:Sunrise,title:'Find your steady rhythm.',copy:'A little focus, a little breathing room. Make space for work and yourself.',minutes:25,task:'Sketch landing-page ideas',rest:'Step outside for a short walk',color:'sage'},
+ high:{label:'High energy',Icon:Sun,title:'Room for your big ideas.',copy:'Give your most meaningful work a little more space, with a break to reset.',minutes:45,task:'Explore a new design direction',rest:'Stretch, reset, come back fresh',color:'peach'}
+} as const;
+export function EnergyPlayground({start}:{start:string}){
+ const [energy,setEnergy]=useState<keyof typeof modes>('balanced');const [done,setDone]=useState(false);const mode=modes[energy];
+ return <Reveal><div className="energy-playground" id="try-bloom"><div className="playground-copy"><span className="eyebrow">A LITTLE PREVIEW, JUST FOR YOU</span><h2>Different energy.<br/>A different <em>kind of day.</em></h2><p>A thoughtful plan starts with how you feel. Try a check-in and see your next step change.</p><div className="demo-energy" role="group" aria-label="Try an energy level">{Object.entries(modes).map(([key,item])=><button key={key} aria-pressed={energy===key} onClick={()=>{setEnergy(key as keyof typeof modes);setDone(false);}}><item.Icon size={19}/>{item.label}</button>)}</div><Link href={start} className="text-link">Make a plan of your own<ArrowUpRight size={16}/></Link><span className="demo-disclaimer">An interactive sample. Your own plan stays yours.</span></div><div className={'demo-card '+mode.color}><Motion trigger={energy+String(done)}><div data-enter className="demo-card-heading"><span className="label"><mode.Icon size={16}/>{mode.label}</span><span className="preview-badge">Try it out</span></div><h3 data-enter>{mode.title}</h3><p data-enter>{mode.copy}</p><div data-enter className={'demo-intention '+(done?'done':'')}><button className="task-check" aria-label={done?'Reset sample intention':'Complete sample intention'} aria-pressed={done} onClick={()=>setDone(value=>!value)}>{done&&<Check size={14}/>}</button><div><strong>{mode.task}</strong><span><Clock size={12}/>{mode.minutes} min · one small intention</span></div></div><div data-enter className="demo-break"><span className="status-dot"/>{mode.rest}</div><div data-enter className="demo-feedback" role="status" aria-live="polite">{done?<><Check size={16}/>One small step. Something good is growing.<button className="icon-button" aria-label="Reset demo" onClick={()=>setDone(false)}><RotateCcw size={14}/></button></>:<><span className="round-check"><Check size={13}/></span>Try checking off your intention.</>}</div></Motion></div></div></Reveal>;
+}
+export function LandingFAQ(){return <Reveal><div className="faq-section"><div><span className="eyebrow">A LITTLE CLARITY</span><h2>Room for <em>questions.</em></h2><p>A few things to help you feel at home.</p></div><div className="faq-list">{[
+ ['Do I need an account?','No signup needed. Your plan is saved in this browser on this device, so you can get started right away.'],
+ ['What happens if I miss a day?','Your garden stays just as you left it. There are no broken streaks or penalties. Come back whenever you are ready.'],
+ ['Can I change my plan during the day?','Absolutely. Change your energy check-in, edit your intentions, or use Replan my day to make space for what matters now.'],
+ ['Where is my data stored?','Your tasks, focus sessions, and reflections stay in your browser’s local storage. They do not sync between devices. You can export a backup from Settings.'],
+ ['Can I turn the animations off?','Yes. Use Reduce motion at the bottom of this page or in Settings. Bloom also respects your device’s reduced-motion preference.']
+ ].map(([question,answer])=><details key={question}><summary>{question}<span aria-hidden="true">+</span></summary><p>{answer}</p></details>)}</div></div></Reveal>;}

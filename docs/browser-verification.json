@@ -1,0 +1,24 @@
+{
+  "checks": [
+    "Landing renders",
+    "Onboarding and sample plan",
+    "Energy changes suggestions",
+    "Task creation and scheduling",
+    "Dialog keyboard dismissal and focus return",
+    "Complete, reopen, permanent growth",
+    "Editing, pinning and reprioritizing",
+    "Planner agenda",
+    "Focus start, pause, resume, completion and session persistence",
+    "Garden and reflection persistence",
+    "Confirmed replanning",
+    "System reduced-motion preference",
+    "Settings persistence and reduced motion",
+    "All routes fit 320px",
+    "All routes fit 390px",
+    "All routes fit 768px",
+    "All routes fit 1280px",
+    "Task deletion with confirmation",
+    "Data reset requires confirmation"
+  ],
+  "issues": []
+}
