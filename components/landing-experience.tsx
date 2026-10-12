@@ -6,7 +6,6 @@ import {loadGsap} from './motion';
 import {useScrollScenes} from './scroll-scenes';
 import {useCinematicScenes} from './cinematic-scenes';
 import {Preloader} from './preloader';
-import {CustomCursor} from './cursor';
 export function LandingExperience({children}:{children:ReactNode}){
  const ref=useRef<HTMLDivElement>(null);const bar=useRef<HTMLDivElement>(null);const {data,setData}=useBloom();useScrollScenes(ref,data.preferences.reducedMotion);useCinematicScenes(ref,data.preferences.reducedMotion);
  useEffect(()=>{
@@ -55,5 +54,5 @@ export function LandingExperience({children}:{children:ReactNode}){
   }).catch(()=>{});
   return()=>{disposed=true;media?.revert();};
  },[data.preferences.reducedMotion]);
- return <div ref={ref} className="landing" id="top"><Preloader/><CustomCursor/><div ref={bar} className="reading-progress" aria-hidden="true"/>{children}<div className="experience-controls"><button aria-pressed={data.preferences.reducedMotion} onClick={()=>setData(d=>({...d,preferences:{...d.preferences,reducedMotion:!d.preferences.reducedMotion}}))}>{data.preferences.reducedMotion?<Play size={14}/>:<Pause size={14}/>}<span>{data.preferences.reducedMotion?'Motion off':'Reduce motion'}</span></button><a href="#top" aria-label="Back to top"><ArrowUp size={16}/></a></div></div>;
+ return <div ref={ref} className="landing" id="top"><Preloader/><div ref={bar} className="reading-progress" aria-hidden="true"/>{children}<div className="experience-controls"><button aria-pressed={data.preferences.reducedMotion} onClick={()=>setData(d=>({...d,preferences:{...d.preferences,reducedMotion:!d.preferences.reducedMotion}}))}>{data.preferences.reducedMotion?<Play size={14}/>:<Pause size={14}/>}<span>{data.preferences.reducedMotion?'Motion off':'Reduce motion'}</span></button><a href="#top" aria-label="Back to top"><ArrowUp size={16}/></a></div></div>;
 }
