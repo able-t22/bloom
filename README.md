@@ -114,3 +114,21 @@ Explore the product opens a lazily loaded tour with Today, Focus, and Garden sam
 The starter ritual builder offers gentle, focused, and creative routines with total duration. Reorder buttons animate with deferred GSAP Flip and retain keyboard focus. Add ritual to my day appends actual editable tasks for the local date, pins the first step, preserves existing tasks, and prevents duplicate routine steps even on rapid repeated clicks. Saved routines survive onboarding. Each routine may be added again on another date.
 
 Scroll measurements refresh when the energy demo or ritual builder changes size. Resize and reduced-motion cleanup restore both pinned scenes without duplicate spacers. Run node scripts/showcase-check.mjs for feature, persistence, isolation, keyboard, and mobile zoom coverage.
+
+## Cinematic GSAP layer
+
+All of it lives in `components/` and is created inside `gsap.matchMedia`, so a resize across a breakpoint or **Reduce motion** reverts it cleanly. GSAP 3.15 ships every plugin free in the `gsap` package.
+
+| File | What it does |
+| --- | --- |
+| `gsap-kit.ts` | One lazy loader that registers ScrollTrigger, SplitText, DrawSVG, MorphSVG, MotionPath, Draggable, Inertia, Observer and ScrollTo. |
+| `cinematic-scenes.ts` | Owns every new scroll scene (see below). |
+| `preloader.tsx` | Once-per-visit intro: leaf draws, wordmark rises, counter follows real page load, four panels lift. Skipped for returning visits, deep links, app routes and reduced motion (a tiny inline script in `app/layout.tsx` decides before first paint). |
+| `cursor.tsx` | Trailing ring that grows over controls and shows labels for `data-cursor`. The real cursor stays visible. Fine pointers only. |
+| `fullscreen-menu.tsx` | Full-screen menu: staggered panels, masked labels, hover preview tile, coordinated reverse exit, focus trap, Escape, ScrollTo navigation. |
+| `showcase.tsx` | Markup for the new sections plus the draggable board. |
+| `growth-shapes.ts` | Morph targets and colours. |
+
+Scenes: masked letter-by-letter hero headline, kinetic section headings, layered hero depth (scroll and pointer), velocity-reactive marquee, horizontal day gallery (sticky, snapping, circular mask reveals, background wash, drag-to-scrub with Observer), stacked promise cards, scroll-lit statement with elastic skew, seed-to-bloom morph with MotionPath sparks and DrawSVG orbit, counters and a self-drawing chart, and a Draggable + Inertia board.
+
+Accessibility and fallbacks: horizontal and sticky layouts are gated by `data-gallery-active` and `data-growth-active`, which only the scenes set, so reduced-motion and mobile visitors get a normal stacked page. The board has a button path for every drag. The "sample week" numbers are labelled as a sample.

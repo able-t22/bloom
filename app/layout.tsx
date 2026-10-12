@@ -1,4 +1,6 @@
 import {PageTransitions} from '@/components/page-transitions';
 import type {Metadata} from 'next';import './globals.css';import {Provider} from '@/components/provider';
 export const metadata:Metadata={title:{default:'Bloom — Make room for what matters',template:'%s · Bloom'},icons:{icon:'/icon.svg'},description:'A calmer, more human way to plan your day. Work with your energy, find your focus, and grow at your own pace.'};
-export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en"><body><a className="skip-link" href="#main-content">Skip to content</a><Provider><PageTransitions>{children}</PageTransitions></Provider></body></html>;}
+// Runs before first paint. Returning visits, reduced motion, deep links and app routes never see the intro.
+const INTRO_GUARD="try{var d=document.documentElement;if(sessionStorage.getItem('bloom-intro')||matchMedia('(prefers-reduced-motion: reduce)').matches||location.hash||location.pathname!=='/')d.dataset.intro='skip'}catch(e){document.documentElement.dataset.intro='skip'}";
+export default function RootLayout({children}:{children:React.ReactNode}){return <html lang="en" suppressHydrationWarning><body><script dangerouslySetInnerHTML={{__html:INTRO_GUARD}}/><noscript><style>{'.preloader{display:none!important}'}</style></noscript><a className="skip-link" href="#main-content">Skip to content</a><Provider><PageTransitions>{children}</PageTransitions></Provider></body></html>;}
